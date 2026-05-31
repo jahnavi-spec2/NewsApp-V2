@@ -3,20 +3,37 @@ import NewsItem from "./NewsItem";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const News = () => {
+const News = ({category}) => {
     const [articles, setArticles] = useState([]);
+    const [page,setPage]= useState(1);
+    const pageSize=6;
+   const [totalResults, setTotalResults] = useState(0);
 
- let url="https://newsapi.org/v2/top-headlines?country=us&apiKey=d126c7cfca814cda83b4da561e7ad390";
+   
  async function getNews(){
+    
+   let url=`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=d126c7cfca814cda83b4da561e7ad390&page=${page}&pageSize=${pageSize}`;
+    
     let data= await fetch(url);
     let parsedData= await data.json();
-    setArticles(parsedData.articles);
     console.log(parsedData);
+    setArticles(parsedData.articles);
+    setTotalResults(parsedData.totalResults);
  }
 
   useEffect(() => {
     getNews();
-  }, []);
+  }, [page,category]);
+
+  function HandlePreviousClick(){
+    setPage(page-1);
+  
+  }
+
+  function HandleNextClick(){
+    setPage(page+1);
+
+  }
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>Top Headlines</h1>
@@ -39,8 +56,12 @@ const News = () => {
 
         </div>
         <div className="container d-flex justify-content-between">
-        <button  type="button" class="btn btn-dark">Previous</button>
-<button type="button" class="btn btn-dark">Next</button>
+        <button disabled={page === 1} type="button" className="btn btn-dark" onClick={HandlePreviousClick}>
+          Previous
+        </button>
+        <button disabled={Math.ceil(totalResults / pageSize) <= page} type="button" className="btn btn-dark" onClick={HandleNextClick}>
+          Next
+        </button>
         </div>
       </div>
     </div>
