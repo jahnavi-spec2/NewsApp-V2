@@ -1,13 +1,15 @@
 import react from "react";
 
-const NewsItem = ({ title, description }) => {
+const NewsItem = ({ title, description,newsUrl,imageUrl }) => {
   return (
    <div className="card" style={{ width: '18rem' }}>
-  <img src="..." className="card-img-top" alt="..."/>
+  <img src={imageUrl} className="card-img-top" alt="..."/>
   <div className="card-body">
     <h5 className="card-title">{title}</h5>
     <p className="card-text">{description}</p>
-    <a href="/" className="btn btn-primary">Read More</a>
+    <a href={newsUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+      Read More
+    </a>
   </div>
 </div>
   );
