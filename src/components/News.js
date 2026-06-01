@@ -2,16 +2,19 @@ import React from "react";
 import NewsItem from "./NewsItem";
 import { useState } from "react";
 import { useEffect } from "react";
+import Spinner from "./Spinner";
 
 const News = ({category}) => {
     const [articles, setArticles] = useState([]);
     const [page,setPage]= useState(1);
     const pageSize=6;
    const [totalResults, setTotalResults] = useState(0);
+    const [loading, setLoading] = useState(false);
+   
 
    
  async function getNews(){
-    
+    setLoading(true);
    let url=`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=d126c7cfca814cda83b4da561e7ad390&page=${page}&pageSize=${pageSize}`;
     
     let data= await fetch(url);
@@ -19,6 +22,8 @@ const News = ({category}) => {
     console.log(parsedData);
     setArticles(parsedData.articles);
     setTotalResults(parsedData.totalResults);
+    setLoading(false);
+   
  }
 
   useEffect(() => {
@@ -26,11 +31,13 @@ const News = ({category}) => {
   }, [page,category]);
 
   function HandlePreviousClick(){
+  
     setPage(page-1);
   
   }
 
   function HandleNextClick(){
+  
     setPage(page+1);
 
   }
@@ -40,8 +47,9 @@ const News = ({category}) => {
 
       <div className="container">
         <div className="row">
+          {loading && <Spinner/>}
 
-          {articles.map((article, index) => {
+          {!loading && articles.map((article, index) => {
             return (
               <div className="col-md-4" key={index}>
                 <NewsItem
