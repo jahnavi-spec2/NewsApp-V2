@@ -4,12 +4,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
 
-const News = ({category}) => {
+
+const News = ( {category, mode}) => {
     const [articles, setArticles] = useState([]);
     const [page,setPage]= useState(1);
-    const pageSize=6;
+    const pageSize=5;
    const [totalResults, setTotalResults] = useState(0);
     const [loading, setLoading] = useState(false);
+
+
+  
    
 
    
@@ -53,6 +57,7 @@ const News = ({category}) => {
             return (
               <div className="col-md-4" key={index}>
                 <NewsItem
+                mode={mode}
                   title={article.title}
                   description={article.description}
                   imageUrl={article.urlToImage?article.urlToImage:"https://th.bing.com/th/id/OIP.2ncl5Bm4DVw9Lj3YacqaCwHaHa?w=154&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3//www.indiatoday.in/education-today/gk-current-affairs/story/news-brief-5th-september-2023-2429337-2023-09-05"}

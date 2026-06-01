@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NavBar = () => {
+
+const NavBar = ({mode, toggleMode}) => {
   return (
     
     <>   
-   <nav className="navbar navbar-expand-lg bg-body-tertiary">
+   <nav className={  `navbar navbar-expand-lg navbar-${mode} bg-${mode}`}>
   <div className="container-fluid">
     <Link className="navbar-brand" to="/">Navbar</Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,10 +41,13 @@ const NavBar = () => {
         </li>
        
       </ul>
-      <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div className="form-check form-switch">
+  <input className="form-check-input" type="checkbox" role="switch" id="switchCheckDefault" checked={mode === "dark"} onChange={toggleMode}/>
+  <label className="form-check-label" htmlFor="switchCheckDefault" >
+    Enable Dark Mode
+  </label>
+</div>
+      
     </div>
   </div>
 </nav>
