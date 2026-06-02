@@ -47,7 +47,7 @@ const News = ( {category, mode}) => {
   }
   return (
     <div>
-      <h1 style={{ textAlign: "center" }}>Top Headlines</h1>
+      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Top Headlines</h1>
 
       <div className="container">
         <div className="row">
