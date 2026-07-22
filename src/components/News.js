@@ -1,11 +1,11 @@
-import React from "react";
 import NewsItem from "./NewsItem";
 import { useState } from "react";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
+import {FaHeart,FaRegHeart} from "react-icons/fa";
 
 
-const News = ( {category, mode}) => {
+const News = ( {category, mode, favorites, toggleFavorite}) => {
     const [articles, setArticles] = useState([]);
     const [page,setPage]= useState(1);
     const pageSize=5;
@@ -13,11 +13,13 @@ const News = ( {category, mode}) => {
     const [loading, setLoading] = useState(false);
 
 
-  
-   
 
    
- async function getNews(){
+
+
+  useEffect(() => {
+
+     async function getNews(){
     setLoading(true);
    let url=`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=d126c7cfca814cda83b4da561e7ad390&page=${page}&pageSize=${pageSize}`;
     
@@ -29,8 +31,6 @@ const News = ( {category, mode}) => {
     setLoading(false);
    
  }
-
-  useEffect(() => {
     getNews();
   }, [page,category]);
 
@@ -58,10 +58,13 @@ const News = ( {category, mode}) => {
               <div className="col-md-4" key={index}>
                 <NewsItem
                 mode={mode}
-                  title={article.title}
-                  description={article.description}
-                  imageUrl={article.urlToImage?article.urlToImage:"https://th.bing.com/th/id/OIP.2ncl5Bm4DVw9Lj3YacqaCwHaHa?w=154&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3//www.indiatoday.in/education-today/gk-current-affairs/story/news-brief-5th-september-2023-2429337-2023-09-05"}
-                  newsUrl={article.url}
+                title={article.title}
+                description={article.description}
+                imageUrl={article.urlToImage?article.urlToImage:"https://th.bing.com/th/id/OIP.2ncl5Bm4DVw9Lj3YacqaCwHaHa?w=154&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3//www.indiatoday.in/education-today/gk-current-affairs/story/news-brief-5th-september-2023-2429337-2023-09-05"}
+                newsUrl={article.url}
+                article={article}
+                onFavClick={toggleFavorite}
+                isFav={favorites.some((a) => a.url === article.url)}
                 />
               </div>
             );

@@ -39,7 +39,9 @@ const NavBar = ({mode, toggleMode}) => {
          <li className="nav-item">
           <Link className="nav-link" to="/science">Science</Link>
         </li>
-       
+       <Link to="/favourite" className="nav-link">
+  ❤️ Favorites
+</Link>
       </ul>
       <div className="form-check form-switch">
   <input className="form-check-input" type="checkbox" role="switch" id="switchCheckDefault" checked={mode === "dark"} onChange={toggleMode}/>
