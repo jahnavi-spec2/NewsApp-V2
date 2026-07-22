@@ -2,7 +2,6 @@ import NewsItem from "./NewsItem";
 import { useState } from "react";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
-import {FaHeart,FaRegHeart} from "react-icons/fa";
 
 
 const News = ( {category, mode, favorites, toggleFavorite}) => {
